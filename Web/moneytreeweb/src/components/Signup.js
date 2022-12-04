@@ -1,72 +1,144 @@
+import React, { Component } from "react";
 import "../styles/Login.css";
+import { createUser } from "../api/UserApi";
 
-function Signup() {
-  return (
-    <div className="main">
-      <div className="sub-main">
-        <div>
+
+class Signup extends Component{
+  constructor(){
+      super()
+      this.state ={          
+          userName: '',
+          firstName: '',
+          lastName: '',          
+          password:''
+      }
+      
+      this.changeUsername =this.changeUsername.bind(this)
+      this.changeFirstName =this.changeFirstName.bind(this)
+      this.changeLastName =this.changeLastName.bind(this)      
+      this.changePassword=this.changePassword.bind(this)
+      this.onSubmit =this.onSubmit.bind(this)
+
+  }
+
+  changeUsername(event){
+    this.setState({
+      userName:event.target.value
+    })
+}
+  changeFirstName(event){
+      this.setState({
+          firstName:event.target.value
+      })
+  }
+
+  changeLastName(event){
+    this.setState({
+      lastName:event.target.value
+    })
+}
+
+  changePassword(event){
+      this.setState({
+          password:event.target.value
+      })
+  }
+
+  onSubmit(event){
+    
+      event.preventDefault()
+
+      const newUser ={
+          userName: this.state.userName,
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,    
+          password: this.state.password
+      }
+        
+      createUser(newUser).then(() => {
+        this.setState({
+          userName:'',
+          firstName:'',
+          lastName:'',
+          password:''
+        })    
+        alert("Signed up successfully!!!");
+        window.location.href = "./Login";
+        
+      })
+
+      
+  }
+
+  render() {
+    return (
+      <div className="main">
+        <div className="sub-main">
           <div>
-            <h1>Sign Up</h1>
+            <div>
+              <h1>Sign Up</h1>
 
-            <div className="second-input">
-              <input
-                type="text"
-                placeholder=" Enter Email"
-                name="Email"
-                className="name"
-                required
-              />
-            </div>
+              <div className="second-input">
+                <input
+                  type="text"
+                  placeholder=" Enter Username"
+                  name="UserName"
+                  onChange={this.changeUsername}
+                            value={this.state.userName}
+                  className="name"
+                  required
+                />
+              </div>
 
-            <div className="second-input">
-              <input
-                type="text"
-                placeholder=" Enter Username"
-                name="UserName"
-                className="name"
-                required
-              />
-            </div>
-            <div className="second-input">
-              <input
-                type="text"
-                placeholder=" Enter Firstname"
-                name="FirstName"
-                className="name"
-                required
-              />
-            </div>
-            <div className="second-input">
-              <input
-                type="text"
-                placeholder=" Enter Lastname"
-                name="LastName"
-                className="name"
-                required
-              />
-            </div>
+              <div className="second-input">
+                <input
+                  type="text"
+                  placeholder=" Enter Firstname"
+                  name="FirstName"
+                  onChange={this.changeFirstName}
+                            value={this.state.firstName}
+                  className="name"
+                  required
+                />
+              </div>              
 
-            <div className="second-input">
-              <input
-                type="password"
-                placeholder=" Enter Password"
-                className="name"
-                required
-              />
-            </div>
+              <div className="second-input">
+                <input
+                  type="text"
+                  placeholder=" Enter Lastname"
+                  name="LastName"
+                  onChange={this.changeLastName}
+                            value={this.state.lastName}
+                  className="name"
+                  required
+                />
+              </div>
 
-            <div className="login-button">
-              <button>Sign Up</button>
-            </div>
+              <div className="second-input">
+                <input
+                  type="password"
+                  placeholder=" Enter Password"
+                  onChange={this.changePassword}
+                            value={this.state.password}
+                  className="name"
+                  required
+                />
+              </div>
 
-            {/* <p className="link">
-              <a href="https://Google.com">Forgot password ?</a> Or <a href="https://Google.com">Sign Up</a>
-            </p> */}
+              <div className="login-button">
+                <button
+                type="submit"
+                value ='Submit'
+                onClick={this.onSubmit}
+                >Sign Up </button>
+                
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Signup;
