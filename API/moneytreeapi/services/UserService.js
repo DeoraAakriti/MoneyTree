@@ -54,6 +54,21 @@ const UserService = {
         } catch (e){
              throw Error('Error while updating user');
         }
+    },
+    getUserByuserName: async (userName, password) => {
+        try {
+            // const saltPassword = await bcrypt.genSalt(10)
+            // const securePassword = await bcrypt.hash(password, saltPassword)
+            const response = await User.query().where('Users.UserName', userName);
+            console.log(response)
+            const passwordResponse = await PasswordService.getByUserId(response[0].Id)
+            console.log(passwordResponse)
+            if(passwordResponse[0].Password == password)
+                return response;
+            throw Error('Invalid User')
+        } catch (e) {
+            throw Error(e);
+        }
     }
 
 }

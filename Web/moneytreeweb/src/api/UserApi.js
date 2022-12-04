@@ -121,3 +121,22 @@ export const deleteTreansaction = async (transactionId) => {
         .catch(err => console.error(err));
     return data;
 }
+
+export const getUserByuserName = async (user) => {    
+    var data = fetch('http://localhost:4000/login', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+
+    },    
+    body: JSON.stringify(user)
+    })
+    .then(response => response.json())
+    .then(response => {
+        return response[0];
+})
+.catch(err => console.error(err));
+
+return data;
+}
