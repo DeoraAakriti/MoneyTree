@@ -73,10 +73,7 @@ const UserService = {
     },
     getUserByuserName: async (userName, password) => {
         try {
-            // const saltPassword = await bcrypt.genSalt(10)
-            // const securePassword = await bcrypt.hash(password, saltPassword)
             const response = await User.query().where("Users.UserName", userName);
-            console.log(response);
             const passwordResponse = await PasswordService.getByUserId(
                 response[0].Id
             );
