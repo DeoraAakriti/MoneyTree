@@ -55,15 +55,20 @@ class Signup extends Component{
           password: this.state.password
       }
         
-      createUser(newUser).then(() => {
+      createUser(newUser).then(data => {
         this.setState({
           userName:'',
           firstName:'',
           lastName:'',
           password:''
-        })    
-        alert("Signed up successfully!!!");
-        window.location.href = "./Login";
+        })
+        if(data == undefined){
+          alert("User already exists try Login instead");
+        }else{
+          alert("Signed up successfully. Please login now");
+          window.location.href = "./Login";
+        }
+        
         
       })
 
@@ -72,7 +77,9 @@ class Signup extends Component{
 
   render() {
     return (
-      <div className="main">
+      <div className="main" style={{
+        marginTop: "3%",
+      }}>
         <div className="sub-main">
           <div>
             <div>

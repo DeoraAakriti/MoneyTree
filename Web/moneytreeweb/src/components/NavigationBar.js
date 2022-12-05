@@ -4,8 +4,14 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const NavigationBar = () => {
+  const [loggedin, setLoggedIn] = useState(null);
+  useEffect(()=>{
+    setLoggedIn(localStorage.getItem("userid"));
+  }, [])
+  
   return (
     <div>
       <Container>
@@ -18,12 +24,14 @@ const NavigationBar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="justify-content-end flex-grow-1 pe-3">
-              <Link to="/">Home</Link>
-              <Link to="/dashboard">Dashboard</Link>
-              <Link to="/account">Accounts</Link>
-              <Link to="/categories">Categories</Link>
-              <Link to="/login">Login</Link>
-              <Link to="/transaction">Transactions</Link>
+              <Link to="/" >Home</Link>
+              {(loggedin == null ? true : false) && <Link to="/signup">Sign Up</Link>}
+              {(loggedin == null ? true : false) && <Link to="/login">Login</Link>}
+              {(loggedin == null ? false : true) && <Link to="/dashboard">Dashboard</Link>}
+              {(loggedin == null ? false : true) && <Link to="/account">Accounts</Link>}
+              {(loggedin == null ? false : true) && <Link to="/categories">Categories</Link>}
+              {(loggedin == null ? false : true) && <Link to="/transaction">Transactions</Link>}
+              {(loggedin == null ? false : true) && <Link to="/" onClick={e => setLoggedIn(null)}>Logout</Link>}
             </Nav>
           </Navbar.Collapse>
         </Navbar>

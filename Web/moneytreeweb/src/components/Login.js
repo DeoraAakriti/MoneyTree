@@ -5,10 +5,8 @@ import pass from "../images/pass.png";
 import React, { Component } from "react";
 import { getUserByuserName } from "../api/UserApi";
 
-
 export default class Login extends Component {
 
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -30,17 +28,21 @@ export default class Login extends Component {
         userName:'',
         password:''
       }) 
+      if(data == undefined){
+        alert("Please check the username or password entered.");
+      }else{
         localStorage.setItem('userid', data.Id)
-        alert("You are logged in!!!");
         window.location.href = "./Dashboard";
-
+      }
     })
   }
   
 
   render() {  
     return (
-      <div className="main">
+      <div className="main" style={{
+        marginTop: "3%",
+      }}>
         <div className="sub-main">
           <div>
             <div className="imgs">
