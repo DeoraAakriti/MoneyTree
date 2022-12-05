@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import Card from "react-bootstrap/Card";
-import { Row, ListGroup, Dropdown, Col, Spinner } from "react-bootstrap";
+import { Row, ListGroup, Dropdown, Col, Spinner, Alert } from "react-bootstrap";
 // import Table from "react-bootstrap/Table";
 import { Bar } from "react-chartjs-2";
 import { getUserData } from "../api/UserApi";
@@ -92,7 +92,7 @@ const Dashboard = () => {
         month == toggleMonth
       ) {
         total += simplifiedData[i].transactionAmount;
-      } 
+      }
     }
     return total;
   }
@@ -147,7 +147,21 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
+    <>
+    {(user.accounts.length == 0 ? true : user.categories.length == 0 ? true : user.transactions.length == 0 ? true : false)
+      && <div sm={11} style={{
+          marginTop: "10%",
+          marginLeft: "5%",
+          marginRight: "5%",
+      }}>
+        <Col>
+          <h1>Welcome {user.UserName ? user.UserName : "Guest"}</h1>{" "}
+        </Col>
+          <Alert variant="danger">Please make sure to have atleast one account, category and transaction to view data on this page.</Alert>
+      </div>
+    }
+    { (user.accounts.length == 0 ? false : user.categories.length == 0 ? false : user.transactions.length == 0 ? false : true) 
+    && < div >
       <Row
         style={{
           marginTop: "10%",
@@ -155,7 +169,7 @@ const Dashboard = () => {
         }}
       >
         <Col>
-          <h1>Welcome {user.UserName ? user.UserName : "Guest"}!</h1>{" "}
+          <h1>Welcome {user.UserName ? user.UserName : "Guest"}</h1>{" "}
         </Col>
         <Col></Col>
         <Col>
@@ -238,7 +252,7 @@ const Dashboard = () => {
             marginRight: "5%",
           }}
         >
-          <Card>
+          <Card style={{maxHeight:"580px"}}>
             <Card.Title
               style={{
                 marginTop: "5%",
@@ -260,7 +274,9 @@ const Dashboard = () => {
           </Card>
         </Col>
       </Row>
-    </div>
+    </div >
+    }
+    </>
   );
 };
 

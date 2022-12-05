@@ -7,7 +7,6 @@ export const getUserData = async () => {
   )
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
       return response[0];
     })
     .catch((err) => console.error(err));
@@ -25,7 +24,7 @@ export const createUser = async (newUser) => {
   })
     .then((response) => response.json())
     .then((response) => {
-      return response[0];
+      return response;
     })
     .catch((err) => console.error(err));
 

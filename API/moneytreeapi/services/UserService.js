@@ -22,7 +22,7 @@ const UserService = {
             );
 
             response[0].tasks = response[0].tasks.filter((item) => !item.IsDeleted);
-            console.log(response);
+            
             return response;
         } catch (e) {
             throw Error("Error while getting user");
