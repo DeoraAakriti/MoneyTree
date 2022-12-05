@@ -13,6 +13,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from "react";
 import { UserContext } from "./contexts/UserContext";
 import React from "react";
+import Signup from "./components/Signup";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -53,6 +54,12 @@ function App() {
             <UserContext.Provider value={{ user, setUser }}>
               <Transaction />
             </UserContext.Provider>
+          }
+        />
+        <Route
+          path="signup"
+          element={
+              <Signup />
           }
         />
       </Routes>

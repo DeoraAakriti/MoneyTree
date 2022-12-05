@@ -7,15 +7,19 @@ import { getUserData } from "../api/UserApi";
 // eslint-disable-next-line
 import { Chart as ChartJS } from "chart.js/auto";
 import { UserContext } from "../contexts/UserContext";
+import { DataSimplifier } from "../services/DataModifier";
 
 const Dashboard = () => {
   const { user, setUser } = useContext(UserContext);
-  const [toggleYear, setToggleYear] = useState(2022);
-  const [toggleMonth, setToggleMonth] = useState(10);
+  const [toggleYear, setToggleYear] = useState(new Date().getUTCFullYear());
+  const [toggleMonth, setToggleMonth] = useState(new Date().getUTCMonth());
+  const [simplifiedData, setSimplifiedData] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
-      const user = await getUserData();
+      let user = await getUserData();
+      let res = DataSimplifier(user.Id, user.accounts, user.categories, user.transactions);
+      setSimplifiedData(res);
       setUser(user);
     };
     getData();
@@ -27,21 +31,21 @@ const Dashboard = () => {
   let years = [];
 
   if (user) {
-    for (let i = 0; i < user.categories.length; i++) {
-      let getTimeStamp = user.categories[i].CreatedAt;
+    for (let i = 0; i < simplifiedData.length; i++) {
+      let getTimeStamp = simplifiedData[i].transactionDate;
       let date = new Date(getTimeStamp);
-      let month = date.getMonth();
-      let year = date.getFullYear();
+      let month = date.getUTCMonth();
+      let year = date.getUTCFullYear();
 
       if (!years.includes(year)) {
         years.push(year);
       }
 
-      if (user.categories[i].Type === 2) {
-        expenseData[month] = user.categories[i].Budget;
+      if (simplifiedData[i].categoryType === 2) {
+        expenseData[month] += simplifiedData[i].transactionAmount;
       }
-      if (user.categories[i].Type === 1) {
-        incomeData[month] = user.categories[i].Budget;
+      if (simplifiedData[i].categoryType === 1) {
+        incomeData[month] += simplifiedData[i].transactionAmount;
       }
     }
   }
@@ -74,39 +78,42 @@ const Dashboard = () => {
   }
 
   function getIncome() {
-    for (let i = 0; i < user.categories.length; i++) {
-      let getTimeStamp = user.categories[i].CreatedAt;
+    let total = 0;
+    for (let i = 0; i < simplifiedData.length; i++) {
+      let getTimeStamp = simplifiedData[i].transactionDate;
       let date = new Date(getTimeStamp);
-      let month = date.getMonth();
-      let year = date.getFullYear();
+      let month = date.getUTCMonth();
+      let year = date.getUTCFullYear();
       if (
-        user.categories[i].Type === 1 &&
+        simplifiedData[i].categoryType === 1 &&
         // eslint-disable-next-line
         year == toggleYear &&
         // eslint-disable-next-line
         month == toggleMonth
       ) {
-        return user.categories[i].Budget;
-      } else return 0;
+        total += simplifiedData[i].transactionAmount;
+      } 
     }
+    return total;
   }
   function getExpenses() {
     let total = 0;
-    for (let i = 0; i < user.categories.length; i++) {
-      let getTimeStamp = user.categories[i].CreatedAt;
+    for (let i = 0; i < simplifiedData.length; i++) {
+      let getTimeStamp = simplifiedData[i].transactionDate;
       let date = new Date(getTimeStamp);
-      let month = date.getMonth();
-      let year = date.getFullYear();
+      let month = date.getUTCMonth();
+      let year = date.getUTCFullYear();
       if (
-        user.categories[i].Type === 2 &&
+        simplifiedData[i].categoryType === 2 &&
         // eslint-disable-next-line
         year == toggleYear &&
         // eslint-disable-next-line
         month == toggleMonth
       ) {
-        return total + user.categories[i].Budget;
-      } else return 0;
+        total += simplifiedData[i].transactionAmount;
+      }
     }
+    return total;
   }
 
   const expense = {
@@ -155,7 +162,7 @@ const Dashboard = () => {
           <Row>
             <Dropdown onSelect={setYearValue}>
               <Dropdown.Toggle className="dropdown" id="dropdown-basic">
-                Choose Year
+                {toggleYear ?? "Choose Year"}
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 {years.map((year) => (
@@ -163,10 +170,9 @@ const Dashboard = () => {
                 ))}
               </Dropdown.Menu>
             </Dropdown>
-            <h3 style={{ marginLeft: "5%" }}> {toggleYear} </h3>
             <Dropdown style={{ marginLeft: "5%" }} onSelect={setMonthValue}>
               <Dropdown.Toggle className="dropdown">
-                Choose Month
+                {toggleMonth == null ? "Choose Month" : months[toggleMonth]}
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 {months.map((month) => (
@@ -176,7 +182,6 @@ const Dashboard = () => {
                 ))}
               </Dropdown.Menu>
             </Dropdown>
-            <h3 style={{ marginLeft: "5%" }}> {Number(toggleMonth) + 1} </h3>
           </Row>
         </Col>
       </Row>
@@ -191,7 +196,7 @@ const Dashboard = () => {
                 Income
               </Card.Title>
               <Card.Text className="mb-2 text-success">
-                ${getIncome()}
+                $ {getIncome()}
               </Card.Text>
             </Card.Body>
           </Card>
@@ -211,7 +216,7 @@ const Dashboard = () => {
                 Expense
               </Card.Title>
               <Card.Text className="mb-2 text-danger">
-                ${getExpenses()}
+                $ {getExpenses()}
               </Card.Text>
             </Card.Body>
           </Card>
@@ -245,10 +250,9 @@ const Dashboard = () => {
             </Card.Title>
             <Card.Body style={{ overflowY: "scroll" }}>
               <ListGroup variant="flush" style={{ fontSize: "250%" }}>
-                {user.transactions.map((transaction) => (
-                  <ListGroup.Item variant="success">
-                    <Col> {transaction.Name} </Col>
-                    <Col> ${transaction.Amount}</Col>
+                {simplifiedData.map(transaction => (
+                  <ListGroup.Item variant={transaction.categoryType === 1 ? "success" : "danger"}>
+                    <Col> {transaction.transactionName} : $ {transaction.transactionAmount}</Col>
                   </ListGroup.Item>
                 ))}
               </ListGroup>
