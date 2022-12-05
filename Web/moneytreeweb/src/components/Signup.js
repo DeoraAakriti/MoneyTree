@@ -62,7 +62,8 @@ class Signup extends Component{
           lastName:'',
           password:''
         })
-        if(data == undefined){
+        console.log("sign up page --- " + data);
+        if(data.status == 400){
           alert("User already exists try Login instead");
         }else{
           alert("Signed up successfully. Please login now");

@@ -31,7 +31,7 @@ const NavigationBar = () => {
               {(loggedin == null ? false : true) && <Link to="/account">Accounts</Link>}
               {(loggedin == null ? false : true) && <Link to="/categories">Categories</Link>}
               {(loggedin == null ? false : true) && <Link to="/transaction">Transactions</Link>}
-              {(loggedin == null ? false : true) && <Link to="/" onClick={e => setLoggedIn(null)}>Logout</Link>}
+              {(loggedin == null ? false : true) && <Link to="/" onClick={(e) => {setLoggedIn(null); localStorage.clear()}}>Logout</Link>}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
