@@ -3,9 +3,7 @@ import UserService from "../services/UserService.js";
 const UserController = {
   getUserById: async (req, res, next) => {
     try {
-      //   console.log(req);
       var response = await UserService.getUserById(req.params.userId);
-      console.log(response);
       return res.status(200).json(response);
     } catch (e) {
       return res.status(400).json({ status: 400, mesage: e.message });
