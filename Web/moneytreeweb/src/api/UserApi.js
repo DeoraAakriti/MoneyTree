@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 export const getUserData = async () => {
   var data = await fetch(
-    "http://localhost:4000/users/" + localStorage.getItem("userid")
+    "users/" + localStorage.getItem("userid")
   )
     .then((response) => response.json())
     .then((response) => {
@@ -15,7 +15,7 @@ export const getUserData = async () => {
 };
 
 export const createUser = async (newUser) => {
-  var data = fetch("http://localhost:4000/users", {
+  var data = fetch("users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export const createUser = async (newUser) => {
 
 export const createAccount = async (accountName) => {
   var data = fetch(
-    "http://localhost:4000/users/" +
+    "users/" +
       localStorage.getItem("userid") +
       "/accounts",
     {
@@ -54,7 +54,7 @@ export const createAccount = async (accountName) => {
 
 export const deleteAccount = async (accountId) => {
   var data = fetch(
-    "http://localhost:4000/users/" +
+    "users/" +
       localStorage.getItem("userid") +
       "/accounts/" +
       accountId,
@@ -75,7 +75,7 @@ export const deleteAccount = async (accountId) => {
 
 export const createCategory = async (category) => {
   var data = fetch(
-    "http://localhost:4000/users/" +
+    "users/" +
       localStorage.getItem("userid") +
       "/categories",
     {
@@ -96,7 +96,7 @@ export const createCategory = async (category) => {
 
 export const deleteCategory = async (categoryId) => {
   var data = fetch(
-    "http://localhost:4000/users/" +
+    "users/" +
       localStorage.getItem("userid") +
       "/categories/" +
       categoryId,
@@ -117,7 +117,7 @@ export const deleteCategory = async (categoryId) => {
 
 export const createTransaction = async (transaction) => {
   var data = fetch(
-    "http://localhost:4000/users/" +
+    "users/" +
       localStorage.getItem("userid") +
       "/transactions",
     {
@@ -138,7 +138,7 @@ export const createTransaction = async (transaction) => {
 
 export const deleteTreansaction = async (transactionId) => {
   var data = fetch(
-    "http://localhost:4000/users/" +
+    "users/" +
       localStorage.getItem("userid") +
       "/transactions/" +
       transactionId,
@@ -158,7 +158,7 @@ export const deleteTreansaction = async (transactionId) => {
 };
 
 export const getUserByuserName = async (user) => {
-  var data = fetch("http://localhost:4000/login", {
+  var data = fetch("login", {
     method: "POST",
     headers: {
       Accept: "application/json",

@@ -8,7 +8,7 @@ import { TaskRoute } from './routes/TaskRoute.js';
 import cors from "cors";
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(cors({ origin: '*' }));
@@ -21,7 +21,10 @@ app.use(AccountRoute);
 app.use(CategoryRoute);
 app.use(TaskRoute);
 
+app.get('/',(req, res) => {
+  res.sendStatus(200);
+})
 
 app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
+  console.log(`App listening at ${port}`);
 });
