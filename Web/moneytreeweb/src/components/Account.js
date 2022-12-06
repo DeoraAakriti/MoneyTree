@@ -99,7 +99,7 @@ const Account = () => {
                 </Dropdown>
                 }
                 <Col>
-                    <Button onClick={handleShow}>
+                    <Button onClick={handleShow} id="addAccount">
                         Add Account
                     </Button>
 
@@ -111,7 +111,7 @@ const Account = () => {
                             <Form onChange={onFormDataChange}>
                                 <Form.Group className="mb-3" controlId="formAccountName">
                                     <Form.Label>Account Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter account name" />
+                                    <Form.Control type="text" placeholder="Enter account name" id="accountname"/>
                                 </Form.Group>
                             </Form>
                         </Modal.Body>
@@ -120,7 +120,7 @@ const Account = () => {
                                 Close
                             </Button>
                             <Button variant="primary" onClick={submitForm}
-                                disabled={formData == null ? true : false}>
+                                disabled={formData == null ? true : false} id="submitaccount">
                                 Save Changes
                             </Button>
                         </Modal.Footer>
@@ -220,7 +220,7 @@ const Account = () => {
                                 <Button variant="secondary" onClick={deleteClose}>
                                     Cancel
                                 </Button>
-                                <Button variant="danger" onClick={deleteAcc}>
+                                <Button variant="danger" onClick={deleteAcc} id="confirmdelete">
                                     Confirm
                                 </Button>
                             </Modal.Footer>

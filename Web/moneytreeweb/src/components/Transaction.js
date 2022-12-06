@@ -144,7 +144,7 @@ const Transaction = () => {
                             </Row>
                         }
                         <Col>
-                            <Button onClick={handleShow}>
+                            <Button onClick={handleShow} id="addTransaction">
                                 Add Transaction
                             </Button>
 
@@ -156,35 +156,35 @@ const Transaction = () => {
                                     <Form>
                                         <Form.Group className="mb-3">
                                             <Form.Label>Transaction Name</Form.Label>
-                                            <Form.Control type="text" placeholder="Enter transaction name" id="categoryName" onChange={e => setTransactionName(e.target.value)} />
+                                            <Form.Control type="text" placeholder="Enter transaction name" id="transactionName" onChange={e => setTransactionName(e.target.value)} />
                                             <Form.Label>Select Account Name</Form.Label>
                                             <Dropdown onSelect={setAccountName} style={{ background: "#ffffff" }}>
-                                                <Dropdown.Toggle className="dropdown">
+                                                <Dropdown.Toggle className="dropdown" id="accountName">
                                                     {formTransactionAccount == null ? "Account Name" : user.accounts.filter(item => item.Id == formTransactionAccount)[0].Name}
                                                 </Dropdown.Toggle>
                                                 <Dropdown.Menu>
                                                     {user.accounts.map(item => (
-                                                        <Dropdown.Item eventKey={item.Id}>{item.Name}</Dropdown.Item>
+                                                        <Dropdown.Item id={item.Name} eventKey={item.Id}>{item.Name}</Dropdown.Item>
                                                     ))
                                                     }
                                                 </Dropdown.Menu>
                                             </Dropdown>
                                             <Form.Label>Select Category Name</Form.Label>
                                             <Dropdown onSelect={setCategoryName} style={{ background: "#ffffff" }}>
-                                                <Dropdown.Toggle className="dropdown">
+                                                <Dropdown.Toggle className="dropdown" id="categoryName">
                                                 {formTransactionCategory == null ? "Category Name" : user.categories.filter(item => item.Id == formTransactionCategory)[0].Name}
                                                 </Dropdown.Toggle>
                                                 <Dropdown.Menu>
                                                     {user.categories.map(item => (
-                                                        <Dropdown.Item eventKey={item.Id}>{item.Name}</Dropdown.Item>
+                                                        <Dropdown.Item id={item.Name} eventKey={item.Id}>{item.Name}</Dropdown.Item>
                                                     ))
                                                     }
                                                 </Dropdown.Menu>
                                             </Dropdown>
                                             <Form.Label>Transaction Amount</Form.Label>
-                                            <Form.Control type="text" placeholder="Transaction Amount" id="categoryName" onChange={e => setFormTransactionAmount(e.target.value)} />
+                                            <Form.Control type="text" placeholder="Transaction Amount" id="transactionAmount" onChange={e => setFormTransactionAmount(e.target.value)} />
                                             <Form.Label>Transaction Date</Form.Label>
-                                            <Form.Control type="date" placeholder="Transaction Date" onChange={e => setFormTransactionDate(e.target.value)} />
+                                            <Form.Control type="date" placeholder="Transaction Date" onChange={e => setFormTransactionDate(e.target.value)} id="transactionDate"/>
                                         </Form.Group>
                                     </Form>
                                 </Modal.Body>
@@ -192,7 +192,7 @@ const Transaction = () => {
                                     <Button variant="danger" onClick={handleClose}>
                                         Close
                                     </Button>
-                                    <Button variant="primary" onClick={submitForm}
+                                    <Button variant="primary" onClick={submitForm} id="submitTransaction"
                                         disabled={formTransactionName == null ? true : formTransactionAccount == null ? true : formTransactionCategory == null ? true : formTransactionAmount == null ? true : formTransactionDate == null ? true : false}
                                     >
                                         Save Changes
@@ -241,7 +241,7 @@ const Transaction = () => {
                                 <Button variant="secondary" onClick={deleteClose}>
                                     Cancel
                                 </Button>
-                                <Button variant="danger" onClick={deleteTra}>
+                                <Button variant="danger" onClick={deleteTra} id="deleteTransaction"> 
                                     Confirm
                                 </Button>
                             </Modal.Footer>

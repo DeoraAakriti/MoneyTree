@@ -61,6 +61,7 @@ export default class Login extends Component {
                   autoComplete="off"
                   onChange={(e) => this.setState({ userName: e.target.value })}                 
                   required
+                  id="username"
                 />
               </div>
               <div className="second-input">
@@ -71,10 +72,11 @@ export default class Login extends Component {
                   className="name"
                   onChange={(e) => this.setState({ password: e.target.value })}                  
                   required
+                  id="password"
                 />
               </div>
               <div className="login-button">
-                <button onClick={this.handleSubmit}>Login </button>
+                <button onClick={this.handleSubmit} id="submitform">Login </button>
               </div>            
             </div>
           </div>
