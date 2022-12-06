@@ -62,7 +62,6 @@ class Signup extends Component{
           lastName:'',
           password:''
         })
-        console.log("sign up page --- " + data);
         if(data.status == 400){
           alert("User already exists try Login instead");
         }else{
@@ -95,6 +94,7 @@ class Signup extends Component{
                             value={this.state.userName}
                   className="name"
                   required
+                  id="username"
                 />
               </div>
 
@@ -107,6 +107,7 @@ class Signup extends Component{
                             value={this.state.firstName}
                   className="name"
                   required
+                  id="firstname"
                 />
               </div>              
 
@@ -119,6 +120,7 @@ class Signup extends Component{
                             value={this.state.lastName}
                   className="name"
                   required
+                  id="lastname"
                 />
               </div>
 
@@ -130,6 +132,7 @@ class Signup extends Component{
                             value={this.state.password}
                   className="name"
                   required
+                  id="password"
                 />
               </div>
 
@@ -138,6 +141,7 @@ class Signup extends Component{
                 type="submit"
                 value ='Submit'
                 onClick={this.onSubmit}
+                id="submitform"
                 >Sign Up </button>
                 
               </div>

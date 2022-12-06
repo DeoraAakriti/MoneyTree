@@ -1,0 +1,5 @@
+import './signup.cy'
+import './login.cy'
+import './account.cy'
+import './category.cy'
+import './transaction.cy'

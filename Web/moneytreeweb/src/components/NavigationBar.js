@@ -25,13 +25,13 @@ const NavigationBar = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="justify-content-end flex-grow-1 pe-3">
               <Link to="/" >Home</Link>
-              {(loggedin == null ? true : false) && <Link to="/signup">Sign Up</Link>}
-              {(loggedin == null ? true : false) && <Link to="/login">Login</Link>}
-              {(loggedin == null ? false : true) && <Link to="/dashboard">Dashboard</Link>}
-              {(loggedin == null ? false : true) && <Link to="/account">Accounts</Link>}
-              {(loggedin == null ? false : true) && <Link to="/categories">Categories</Link>}
-              {(loggedin == null ? false : true) && <Link to="/transaction">Transactions</Link>}
-              {(loggedin == null ? false : true) && <Link to="/" onClick={(e) => {setLoggedIn(null); localStorage.clear()}}>Logout</Link>}
+              {(loggedin == null ? true : false) && <Link to="/signup" id="signupNav">Sign Up</Link>}
+              {(loggedin == null ? true : false) && <Link to="/login" id="loginNav">Login</Link>}
+              {(loggedin == null ? false : true) && <Link to="/dashboard" id="dashboardNav">Dashboard</Link>}
+              {(loggedin == null ? false : true) && <Link to="/account" id="accountNav">Accounts</Link>}
+              {(loggedin == null ? false : true) && <Link to="/categories" id="categoryNav">Categories</Link>}
+              {(loggedin == null ? false : true) && <Link to="/transaction" id="transactionNav">Transactions</Link>}
+              {(loggedin == null ? false : true) && <Link to="/" onClick={(e) => {setLoggedIn(null); localStorage.clear()}} id="logoutNav">Logout</Link>}
             </Nav>
           </Navbar.Collapse>
         </Navbar>

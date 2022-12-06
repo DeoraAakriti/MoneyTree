@@ -189,7 +189,7 @@ const Categories = () => {
         </Row>
         }
         <Col>
-          <Button onClick={handleShow}>
+          <Button onClick={handleShow} id="addCategory">
             Add Category
           </Button>
 
@@ -204,12 +204,12 @@ const Categories = () => {
                   <Form.Control type="text" placeholder="Enter category name" id="categoryName" onChange={e => setFormCategoryName(e.target.value)} />
                   <Form.Label>Select Category Type</Form.Label>
                   <Dropdown onSelect={setCategoryType} style={{ background: "#ffffff" }}>
-                    <Dropdown.Toggle className="dropdown">
+                    <Dropdown.Toggle className="dropdown" id="categoryTypeDropdown">
                       {formCategoryType == 1 ? "Income" : formCategoryType == 2 ? "Expense" : "Category Type"}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                      <Dropdown.Item eventKey="1">Income</Dropdown.Item>
-                      <Dropdown.Item eventKey="2">Expense</Dropdown.Item>
+                      <Dropdown.Item id="income" eventKey="1">Income</Dropdown.Item>
+                      <Dropdown.Item id="expense" eventKey="2">Expense</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                   {formCategoryType == 2 && <Form.Label>Set Expense Category Budget</Form.Label>}
@@ -221,7 +221,7 @@ const Categories = () => {
               <Button variant="danger" onClick={handleClose}>
                 Close
               </Button>
-              <Button variant="primary" onClick={submitForm}
+              <Button variant="primary" onClick={submitForm} id="submitCategory"
                 disabled={(formCategoryName == null ? true : (formCategoryType == null ? true : (formCategoryType == 2 ? (formCategoryBudget == null ? true : false) : false)))}
               >
                 Save Changes
@@ -278,7 +278,7 @@ const Categories = () => {
                 <Button variant="secondary" onClick={deleteClose}>
                   Cancel
                 </Button>
-                <Button variant="danger" onClick={deleteCat}>
+                <Button variant="danger" onClick={deleteCat} id="deleteCategory">
                   Confirm
                 </Button>
               </Modal.Footer>
